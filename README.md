@@ -18,3 +18,9 @@ El contrato HTTP está en [docs/api.md](docs/api.md). El SLA usa horas corridas,
 La plantilla [infra/template.yaml](infra/template.yaml) es ilustrativa: no existe aún el adaptador Lambda ni la integración DynamoDB, y no debe desplegarse como está.
 
 El directorio `.kiro/` contiene especificaciones y configuración para Kiro. Los hooks y el agente dependen de la versión y permisos de Kiro y deben verificarse en una sesión real; la exclusión `.kiroignore` y el hook de lectura directa no sustituyen controles de acceso del sistema operativo.
+
+## Estado del laboratorio
+
+Se probaron la API, el panel, el SLA, el error de conexión y la regresión de tickets vencidos. Se validó la configuración del agente y se instalaron los powers de TicketOps y AWS en Kiro CLI. La auditoría automática y sus limitaciones se describen en [.kiro/reports/accesibilidad-panel.md](.kiro/reports/accesibilidad-panel.md).
+
+Queda por comprobar en Kiro: las memorias y su recuperación en una sesión nueva; la activación real de hooks, MCP, skills y powers; el workflow en segundo plano; y el agente revisor interactivo y headless. El informe de riesgos se elaboró localmente, no mediante un workflow de Kiro.
