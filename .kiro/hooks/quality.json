@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "hooks": [{
+    "name": "Corregir TypeScript y ejecutar pruebas relacionadas",
+    "trigger": "PostFileSave",
+    "matcher": "(^|[\\\\/])src[\\\\/].*\\.ts$",
+    "action": { "type": "command", "command": "node .kiro/hooks/quality.mjs", "timeout": 120000 }
+  }]
+}

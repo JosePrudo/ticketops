@@ -1,0 +1,12 @@
+{
+  "version": "v1",
+  "hooks": [{
+    "name": "Actualizar documentación de API",
+    "trigger": "PostFileSave",
+    "matcher": "(^|[\\\\/])src[\\\\/](app\\.ts|.*[\\\\/]routes[\\\\/].*\\.ts|.*\\.routes\\.ts)$",
+    "action": {
+      "type": "agent",
+      "prompt": "Actualiza docs/api.md con los endpoints, parámetros y códigos de respuesta vigentes. No documentes secretos."
+    }
+  }]
+}

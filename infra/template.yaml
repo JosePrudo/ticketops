@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'TicketOps - diseño ilustrativo; requiere adaptación Lambda antes de desplegar.'
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Timeout: 10
+Resources:
+  TicketsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+  TicketsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../dist/
+      Handler: lambda.tickets
+      Environment:
+        Variables:
+          TICKETS_TABLE: !Ref TicketsTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TicketsTable
+      Events:
+        Tickets:
+          Type: Api
+          Properties:
+            Path: /tickets/{proxy+}
+            Method: ANY
+        TicketCollection:
+          Type: Api
+          Properties:
+            Path: /tickets
+            Method: ANY
+  HealthFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../dist/
+      Handler: lambda.health
+      Events:
+        Health:
+          Type: Api
+          Properties:
+            Path: /health
+            Method: GET

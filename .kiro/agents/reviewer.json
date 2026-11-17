@@ -1,0 +1,16 @@
+{
+  "name": "reviewer",
+  "description": "Revisor de código de TicketOps.",
+  "tools": ["read", "shell"],
+  "permissions": {
+    "rules": [
+      { "capability": "fs_read", "match": ["**"], "effect": "allow" },
+      { "capability": "fs_read", "match": [".env", ".env.*", "**/.env", "**/.env.*", "secrets/**"], "effect": "deny" },
+      { "capability": "shell", "match": ["git log -1", "git show", "git diff", "git status"], "effect": "allow" },
+      { "capability": "shell", "match": ["*"], "exclude": ["git log -1", "git show", "git diff", "git status"], "effect": "deny" },
+      { "capability": "fs_write", "match": ["**"], "effect": "deny" }
+    ]
+  },
+  "resources": ["file://.kiro/steering/**/*.md", "skill://.kiro/skills/**/SKILL.md"],
+  "prompt": "Revisa los cambios con el skill pr-review y entrega un informe breve con archivo y línea. No modifiques archivos ni ejecutes comandos que alteren el entorno."
+}

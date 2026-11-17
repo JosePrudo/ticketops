@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TicketOps | Panel de tickets</title>
+  <link rel="stylesheet" href="/panel/panel.css">
+  <script src="/panel/panel.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div><p class="eyebrow">ANDES OPERACIONES</p><h1>TicketOps <span>Panel de tickets</span></h1></div>
+    <div class="metrics" role="group" aria-label="Resumen de tickets">
+      <div><strong id="open-count">—</strong><span>Abiertos</span></div>
+      <div><strong id="overdue-count">—</strong><span>Vencidos</span></div>
+      <div><strong id="resolved-count">—</strong><span>Resueltos</span></div>
+    </div>
+  </header>
+  <main>
+    <section class="card new-ticket" aria-labelledby="create-heading">
+      <p class="eyebrow">REGISTRO</p><h2 id="create-heading">Nuevo ticket</h2>
+      <p class="muted">Cuéntanos qué necesita atención.</p>
+      <form id="create-form" novalidate>
+        <label for="title">Título <span aria-hidden="true">*</span></label>
+        <input id="title" name="title" maxlength="200" required aria-describedby="title-error">
+        <p id="title-error" class="field-error" role="alert"></p>
+        <label for="description">Descripción</label>
+        <textarea id="description" name="description" rows="4" maxlength="4000"></textarea>
+        <label for="category">Categoría</label>
+        <select id="category" name="category">
+          <option value="INFRAESTRUCTURA">Infraestructura</option><option value="ACCESOS">Accesos</option>
+          <option value="APLICACIONES">Aplicaciones</option><option value="INSTALACIONES">Instalaciones</option>
+        </select>
+        <label for="priority">Prioridad</label>
+        <select id="priority" name="priority">
+          <option value="MEDIA">Media</option><option value="CRITICA">Crítica</option>
+          <option value="ALTA">Alta</option><option value="BAJA">Baja</option>
+        </select>
+        <label for="requester">Solicitante</label>
+        <input id="requester" name="requester" maxlength="200">
+        <button class="primary" type="submit">Crear ticket</button>
+      </form>
+    </section>
+    <section class="card list" aria-labelledby="list-heading">
+      <div class="list-header">
+        <div><p class="eyebrow">SEGUIMIENTO</p><h2 id="list-heading">Tickets</h2></div>
+        <div class="filters">
+          <label for="filter">Mostrar</label>
+          <select id="filter">
+            <option value="all">Todos</option><option value="overdue">Solo vencidos</option>
+            <option value="NUEVO">Nuevo</option><option value="ASIGNADO">Asignado</option>
+            <option value="EN_PROGRESO">En progreso</option><option value="EN_ESPERA">En espera</option>
+            <option value="RESUELTO">Resuelto</option><option value="CERRADO">Cerrado</option>
+          </select>
+          <button type="button" id="refresh">Actualizar</button>
+        </div>
+      </div>
+      <p id="message" role="status" aria-live="polite"></p>
+      <table>
+        <thead><tr><th>ID</th><th>Título</th><th>Categoría</th><th>Prioridad</th><th>Estado</th><th>Vencimiento</th><th>Acciones</th></tr></thead>
+        <tbody id="tickets"></tbody>
+      </table>
+    </section>
+  </main>
+  <dialog id="resolution-dialog" aria-labelledby="resolution-title">
+    <form id="resolution-form" novalidate>
+      <h2 id="resolution-title">Resolver ticket</h2>
+      <p>Describe cómo se solucionó el incidente.</p>
+      <label for="resolution-note">Nota de resolución</label>
+      <textarea id="resolution-note" maxlength="4000" required aria-describedby="resolution-error"></textarea>
+      <p id="resolution-error" class="field-error" role="alert"></p>
+      <div class="dialog-actions"><button type="button" id="cancel-resolution">Cancelar</button><button type="submit" class="primary">Resolver</button></div>
+    </form>
+  </dialog>
+</body>
+</html>
