@@ -1,5 +1,7 @@
 # TicketOps
 
+[![CI](https://github.com/JosePrudo/ticketops/actions/workflows/ci.yml/badge.svg)](https://github.com/JosePrudo/ticketops/actions/workflows/ci.yml)
+
 Laboratorio local de gestión de tickets operacionales con Node.js 20.19 o superior compatible, TypeScript 5.9, Express, zod y Vitest. Los datos son ficticios y se guardan en memoria: se pierden al detener el proceso.
 
 ```powershell
@@ -10,6 +12,8 @@ pnpm build
 $env:DEMO_DATA = '1'
 pnpm start
 ```
+
+El pipeline de GitHub Actions (`.github/workflows/ci.yml`) ejecuta lint, build y tests en Node 20, 22 y 24 en cada push y pull request a `master`.
 
 Abre `http://localhost:3000/panel/`. El servidor escucha solo en la interfaz local. Sin `DEMO_DATA=1`, comienza sin tickets. Para seleccionar otro puerto usa `$env:PORT = '3001'`. Para quitar la demostración usa `Remove-Item Env:DEMO_DATA`.
 
